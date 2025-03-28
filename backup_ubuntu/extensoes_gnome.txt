@@ -1,0 +1,4 @@
+https://github.com/neffo/bing-wallpaper-gnome-extension
+https://github.com/cliffniff/media-controls
+https://github.com/icedman/search-light
+https://github.com/corecoding/Vitals
