@@ -48,18 +48,19 @@ install_gnome_extensions() {
 
 # Restaurar pacotes e configurações do sistema
 restore_system() {
+    echo "Restaurando repositórios..."
+    sudo cp "$BACKUP_DIR/sources.list.backup" /etc/apt/sources.list
+    sudo cp -r "$BACKUP_DIR/sources.list.d.backup" /etc/apt/sources.list.d
+    
     echo "Atualizando sistema e instalando pacotes necessários..."
     sudo apt update && sudo apt upgrade -y
+    sudo apt-cache dumpavail | sudo dpkg --merge-avail
     sudo dpkg --set-selections < "$BACKUP_DIR/pacotes_instalados.txt"
     sudo apt-get dselect-upgrade -y
 
     echo "Restaurando arquivos de configuração..."
     sudo cp "$BACKUP_DIR/fstab.backup" /etc/fstab
     cp "$BACKUP_DIR/bashrc.backup" ~/.bashrc
-
-    echo "Restaurando repositórios..."
-    sudo cp "$BACKUP_DIR/sources.list.backup" /etc/apt/sources.list
-    sudo cp -r "$BACKUP_DIR/sources.list.d.backup" /etc/apt/sources.list.d
 }
 
 # Execução principal
